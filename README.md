@@ -47,27 +47,43 @@ on:
   push:
     tags:
       - "*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  out_file: '${{ github.event.repository.name }}.pdf'
 
 jobs:
   typeset_release:
     runs-on: ubuntu-latest
-    name: Release
+    name: Mark and release
     steps:
       - name: Checkout 
         uses: actions/checkout@v3
-      - name: Compile LaTeX document
+      - name: Process LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: example/main.tex
-      - name: Add text to pdf
-        uses: oliver-butterley/mark-pdf-action@v1
+          root_file: main.tex
+      - name: Mark text onto pdf
+        uses:  oliver-butterley/mark-pdf-action@v1
         with:
-          filename: 'main.pdf'
+          in_file: 'main.pdf'
+          out_file:  ${{ env.out_file }}
           text: 'repo: ${{ github.repository }}, ref:  ${{ github.ref_name }}'
-      - uses: actions/upload-artifact@v2
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         with:
-          path: main.pdf
-```
+          name: draft
+          path: ${{ env.out_file }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        with:
+          files:  ${{ env.out_file }}
+```        
 
 ## To do
 
