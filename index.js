@@ -32,7 +32,7 @@ async function run() {
             color: pdflib.rgb(0.4, 0.4, 0.4),
         })    
         const pdfBytes = await pdfDoc.save()
-        fs.writeFileSync(inputFilename, pdfBytes)
+        fs.writeFileSync(`marked-${inputFilename}`, pdfBytes)
     } catch (error) {
         core.setFailed(error.message);
     }
