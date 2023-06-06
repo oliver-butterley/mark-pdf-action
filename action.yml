@@ -1,5 +1,6 @@
 name: 'Mark PDF'
-description: 'Add a short text to a PDF'
+description: 'Add a short text and sha to a PDF'
+author: 'Oliver Butterley'
 inputs:
   in_file: 
     description: 'input pdf filename'
@@ -16,3 +17,6 @@ inputs:
 runs:
   using: 'node16'
   main: 'dist/index.js'
+branding:
+  icon: book-open
+  color: blue
