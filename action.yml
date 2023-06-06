@@ -1,10 +1,14 @@
 name: 'Mark PDF'
 description: 'Add a short text to a PDF'
 inputs:
-  filename: 
-    description: 'pdf filename'
+  in_file: 
+    description: 'input pdf filename'
     required: true
     default: 'main.pdf' 
+  out_file: 
+    description: 'output pdf filename'
+    required: true
+    default: 'marked-main.pdf' 
   text: 
     description: 'Text to be added to pdf'
     required: true
