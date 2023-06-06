@@ -1,13 +1,14 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Mark PDF'
+description: 'Add a short text to a PDF'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  filename: 
+    description: 'pdf filename'
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+    default: 'main.pdf' 
+  text: 
+    description: 'Text to be added to pdf'
+    required: true
+    default: ''
 runs:
   using: 'node16'
   main: 'dist/index.js'
